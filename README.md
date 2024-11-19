@@ -1,5 +1,3 @@
-# Vehicle CRUD Web Service
-
 Project Overview
 
 This project implements a simple CRUD-style(create, read, update, delete) web service for managing vehicles using Flask and SQLAlchemy. The reasons why that I used SQLAlchemy is that after research I found that the Flask-SQLAlchemy extension makes database configuration easier. The service provides API endpoints to create, read, update, and delete vehicle records stored in a database.
@@ -11,16 +9,16 @@ Project Setup
   - Created a project directory named `Vehicle_Apollo`.
   - Created subdirectories and files:
     Vehicle_Apollo/
-    ├── app/
-    │   ├── __init__.py            # Initializes the Flask application and registers routes
-    │   ├── database.py            # Sets up SQLAlchemy database connection
-    │   ├── models.py              # Defines the Vehicle with attributes
-    │   ├── routes.py              # Implements API routes for CRUD operations
-    ├── run.py                     # run to start Flask 
-    ├── requirements.txt           # Project dependencies, packages
-    ├── README.md                  # Project overview and documentation
-    └── tests/
-        └── test_vehicle_api.py    # Unit tests for the API
+    app/
+    __init__.py            # Initializes the Flask application and registers routes
+    database.py            # Sets up SQLAlchemy database connection
+    models.py              # Defines the Vehicle with attributes
+    routes.py              # Implements API routes for CRUD operations
+    run.py                 # run to start Flask 
+    requirements.txt       # Project dependencies, packages
+    README.md              # Project overview and documentation
+    tests/
+    test_vehicle_api.py    # Unit tests for the API
 
 - Initialized Git Repository:
   - Run command `git init` to initialize a local Git repository.
@@ -69,11 +67,11 @@ Challenges Faced
 
 2. Handling Unique Constraints
 - Problem: Ensuring that VIN is unique (case-insensitive) required careful validation.
-- Solution: Added validation logic to handle unique constraint violations gracefully and provided meaningful error responses.
+- Solution: Added validation logic to handle unique constraint violations.
 
 3. Error Handling for Invalid Requests
 - Problem: Managing different error responses for malformed JSON requests and validation errors.
-- Solution: Implemented error handling logic to return appropriate status codes (`400 Bad Request`, `422 Unprocessable Entity`) with informative messages.
+- Solution: Implemented error handling logic to return appropriate status codes (`400 Bad Request`, `422 Unprocessable Entity`) with messages.
 
 4. Testing Environment Issues
 - Problem: Encountered a `ModuleNotFoundError` when trying to run tests using `pytest`, indicating that the `app` module could not be found by the test file.
@@ -83,11 +81,9 @@ Challenges Faced
   - Made sure to run `pytest` from the project root directory.
   - Added and adjusted imports to use absolute paths, e.g., `from app import create_app, db`.
   - Verified that the test files and functions were correctly named to be discovered by `pytest`.
-  - Ultimately resolved the issue by ensuring the correct structure, `PYTHONPATH`, and function naming conventions for `pytest`.
 
-Testing
+Testing(unit testing)
 
-Unit Tests
 - Created unit tests in `tests/test_vehicle_api.py` using `pytest`.
 - Tests Include:
   - Testing all CRUD operations (`GET`, `POST`, `PUT`, `DELETE`) for the `/vehicle` endpoint.
@@ -96,24 +92,8 @@ Tests Running Commands:
 - run command: 'pytest' in a new terminal
 
 
+Error Handling
 
-
-### 3. Data Model
-- **Vehicle Table**:
-  - `vin` (string, primary key, unique)
-  - `manufacturer_name` (string)
-  - `description` (string)
-  - `horse_power` (integer)
-  - `model_name` (string)
-  - `model_year` (integer)
-  - `purchase_price` (decimal)
-  - `fuel_type` (string)
-
-4. Error Handling
-- **400 Bad Request**: Returned when the request body is not a valid JSON.
-- **422 Unprocessable Entity**: Returned when the input data is invalid or missing required fields.
-
-5. Testing Strategy
-- **Isolated Test Environment**: Used an in-memory SQLite database for testing.
-- **Comprehensive Test Cases**: Covered all possible CRUD operations, edge cases, and error handling scenarios.
+- 400 Bad Request: Returned when the request body is not a valid JSON.
+- 422 Unprocessable Entity: Returned when the input data is invalid or missing required fields or duplicated.
 
